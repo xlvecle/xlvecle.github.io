@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>android5.0开发的一个小坑 | xlvecle&#39;s blog</title>
+  <title>hexo添加rss feed | xlvecle&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在使用API21开发的时候发现了一个问题，就是在设置layout的时候发现button的text会被自动转换成大写，真是一个奇怪的问题。解决方法如下：">
+  <meta name="description" content="在config.yml中添加：12plugins:	- hexo-generator-feed
+在hexo目录下执行：1npm install hexo-generator-feed --save
+然后在执行hexo g的时候便会自动生成atom.xml。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="android5.0开发的一个小坑">
-<meta property="og:url" content="http://xlvecle.github.io/2015/02/27/android5.0开发的一个小坑/index.html">
+<meta property="og:title" content="hexo添加rss feed">
+<meta property="og:url" content="http://xlvecle.github.io/2015/04/07/hexo添加rss feed/index.html">
 <meta property="og:site_name" content="xlvecle's blog">
-<meta property="og:description" content="在使用API21开发的时候发现了一个问题，就是在设置layout的时候发现button的text会被自动转换成大写，真是一个奇怪的问题。解决方法如下：">
+<meta property="og:description" content="在config.yml中添加：12plugins:	- hexo-generator-feed
+在hexo目录下执行：1npm install hexo-generator-feed --save
+然后在执行hexo g的时候便会自动生成atom.xml。">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="android5.0开发的一个小坑">
-<meta name="twitter:description" content="在使用API21开发的时候发现了一个问题，就是在设置layout的时候发现button的text会被自动转换成大写，真是一个奇怪的问题。解决方法如下：">
+<meta name="twitter:title" content="hexo添加rss feed">
+<meta name="twitter:description" content="在config.yml中添加：12plugins:	- hexo-generator-feed
+在hexo目录下执行：1npm install hexo-generator-feed --save
+然后在执行hexo g的时候便会自动生成atom.xml。">
   
     <link rel="alternative" href="/atom.xml" title="xlvecle&#39;s blog" type="application/atom+xml">
   
@@ -52,37 +58,36 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-android5.0开发的一个小坑" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-hexo添加rss feed" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      android5.0开发的一个小坑
+      hexo添加rss feed
     </h1>
   
 
       </header>
     
-    <time class="article-date" datetime="2015-02-27T14:57:53.000Z" itemprop="datePublished">02-27-2015</time>
+    <time class="article-date" datetime="2015-04-07T10:25:00.000Z" itemprop="datePublished">04-07-2015</time>
     
   </div>
   <div class="article-inner">
     <div class="article-entry" itemprop="articleBody">
       
-        <p>  在使用API21开发的时候发现了一个问题，就是在设置layout的时候发现button的text会被自动转换成大写，真是一个奇怪的问题。<br>解决方法如下：<a id="more"></a> </p>
-<blockquote>
-<p>在button的layout定义中加入android:textAllCaps=”false”即可，诡异的是Android Studio居然还没有这个的自动补全，所以全靠手动敲咯。</p>
-</blockquote>
+        <p>在config.yml中添加：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">plugins:</span></span><br><span class="line">	- hexo-generator-feed</span><br></pre></td></tr></table></figure></p>
+<p>在hexo目录下执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure></p>
+<p>然后在执行hexo g的时候便会自动生成atom.xml。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xlvecle.github.io/2015/02/27/android5.0开发的一个小坑/" data-id="ci87ew0a200004cv20u8g5ev3" class="article-share-link">Share</a>
+      <a data-url="http://xlvecle.github.io/2015/04/07/hexo添加rss feed/" data-id="ci87g6b1c00005wv2vi26q4cs" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-studio/">android studio</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
 
     </footer>
   </div>
@@ -90,15 +95,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/03/27/jetty启动配置简介/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          jetty启动配置简介
-        
-      </div>
-    </a>
   
+    <a href="/2015/03/27/jetty启动配置简介/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">jetty启动配置简介</div>
+    </a>
   
 </nav>
 

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[xlvecle's blog]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://xlvecle.github.io/"/>
+  <updated>2015-04-07T15:12:57.132Z</updated>
+  <id>http://xlvecle.github.io/</id>
+  
+  <author>
+    <name><![CDATA[xlvecle]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[hexo添加rss feed]]></title>
+    <link href="http://xlvecle.github.io/2015/04/07/hexo%E6%B7%BB%E5%8A%A0rss%20feed/"/>
+    <id>http://xlvecle.github.io/2015/04/07/hexo添加rss feed/</id>
+    <published>2015-04-07T10:25:00.000Z</published>
+    <updated>2015-04-07T15:12:57.132Z</updated>
+    <content type="html"><![CDATA[<p>在config.yml中添加：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">plugins:</span></span><br><span class="line">	- hexo-generator-feed</span><br></pre></td></tr></table></figure></p>
+<p>在hexo目录下执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure></p>
+<p>然后在执行hexo g的时候便会自动生成atom.xml。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在config.yml中添加：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">]]>
+    </summary>
+    
+      <category term="hexo" scheme="http://xlvecle.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[jetty启动配置简介]]></title>
+    <link href="http://xlvecle.github.io/2015/03/27/jetty%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE%E7%AE%80%E4%BB%8B/"/>
+    <id>http://xlvecle.github.io/2015/03/27/jetty启动配置简介/</id>
+    <published>2015-03-27T10:20:11.000Z</published>
+    <updated>2015-04-07T14:51:27.412Z</updated>
+    <content type="html"><![CDATA[<p>jetty是什么？</p>
+<blockquote>
+<p>Jetty 是一个用 Java 实现、开源、基于标准的，并且具有丰富功能的 Http 服务器和 Web 容器。</p>
+</blockquote>
+<p>在配置jetty的过程中，发现中文互联网中关于jetty启动配置的说明非常少，查找了不少资料，有了些许的收获，在这里分享出来（下面不讨论代码中嵌入启动jetty以及IDE启动jetty的方式）。<a id="more"></a></p>
+<p>简单地启动一个jetty服务器可以使用下面的命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar start.jar</span><br></pre></td></tr></table></figure></p>
+<p>如果我们没有指定jetty的配置文件，jetty在启动时就会自动寻找$JETTY_HOME下的start.ini文件，所以为了提高灵活性，我们在部署项目的过程中使用自定义的配置文件，用法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar start.jar –-ini=<span class="variable">$JETTY_CONF</span></span><br></pre></td></tr></table></figure></p>
+<p>在配置文件中会指定将要使用的XML文件，jetty.xml是默认的配置文件，该配置文件的根元素是Configure，另外还会看到有如下的配置元素：</p>
+<ul>
+<li>Set: 相当于调用setXxx 方法</li>
+<li>Get: 相当于调用getXxx 方法</li>
+<li>New: 创建某个类的实例</li>
+<li>Arg: 为方法或构造器传入参数</li>
+<li>Array: 设置一个数组</li>
+<li>Item: 设置数组或集合的项</li>
+<li>Call: 调用某个方法</li>
+</ul>
+<p>jetty.xml主要完成ThreadPool、连接器Connector、Handler等主要组件的配置，然后其他如jetty-deploy.xml、jetty-webapps.xml等文件中配置了一些其他内容。实际上，这些都写在一个配置文件中也是没有问题的。</p>
+<p>在配置文件中通过传递启动参数的方法来赋值给一些如端口，context目录，war包目录等具有自定义需求的配置元素。我们在操作中使用如下（只列举了两项）的方法来获取启动参数中的值。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Set</span> <span class="attribute">name</span>=<span class="value">"contextPath"</span>&gt;</span>/<span class="tag">&lt;<span class="title">SystemProperty</span> <span class="attribute">name</span>=<span class="value">"app.context"</span>/&gt;</span><span class="tag">&lt;/<span class="title">Set</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">Set</span> <span class="attribute">name</span>=<span class="value">"war"</span>&gt;</span><span class="tag">&lt;<span class="title">SystemProperty</span> <span class="attribute">name</span>=<span class="value">"app.workdir"</span>/&gt;</span><span class="tag">&lt;/<span class="title">Set</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在定义好配置文件后，将war包解压放入app.workdir中，我们使用（下面只是一个简单的示范）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar start.jar -Djetty.port=<span class="variable">$PORT</span> -Dapp.context=<span class="variable">$CONTEXT</span> -Dapp.workdir=<span class="variable">$WORKDIR</span> –-ini=<span class="variable">$JETTY_CONF</span></span><br></pre></td></tr></table></figure></p>
+<p>这样的命令来启动我们的java web应用，然后应该就ok了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>jetty是什么？</p>
+<blockquote>
+<p>Jetty 是一个用 Java 实现、开源、基于标准的，并且具有丰富功能的 Http 服务器和 Web 容器。</p>
+</blockquote>
+<p>在配置jetty的过程中，发现中文互联网中关于jetty启动配置的说明非常少，查找了不少资料，有了些许的收获，在这里分享出来（下面不讨论代码中嵌入启动jetty以及IDE启动jetty的方式）。]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://xlvecle.github.io/tags/java/"/>
+    
+      <category term="jetty" scheme="http://xlvecle.github.io/tags/jetty/"/>
+    
+      <category term="web" scheme="http://xlvecle.github.io/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[android5.0开发的一个小坑]]></title>
+    <link href="http://xlvecle.github.io/2015/02/27/android5.0%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/"/>
+    <id>http://xlvecle.github.io/2015/02/27/android5.0开发的一个小坑/</id>
+    <published>2015-02-27T14:57:53.000Z</published>
+    <updated>2015-04-07T14:51:42.098Z</updated>
+    <content type="html"><![CDATA[<p>  在使用API21开发的时候发现了一个问题，就是在设置layout的时候发现button的text会被自动转换成大写，真是一个奇怪的问题。<br>解决方法如下：<a id="more"></a> </p>
+<blockquote>
+<p>在button的layout定义中加入android:textAllCaps=”false”即可，诡异的是Android Studio居然还没有这个的自动补全，所以全靠手动敲咯。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>  在使用API21开发的时候发现了一个问题，就是在设置layout的时候发现button的text会被自动转换成大写，真是一个奇怪的问题。<br>解决方法如下：]]>
+    
+    </summary>
+    
+      <category term="android" scheme="http://xlvecle.github.io/tags/android/"/>
+    
+      <category term="android studio" scheme="http://xlvecle.github.io/tags/android-studio/"/>
+    
+  </entry>
+  
+</feed>

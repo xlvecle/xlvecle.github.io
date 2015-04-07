@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>jetty启动配置简介 | xlvecle&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="jetty是什么？
+
+Jetty 是一个用 Java 实现、开源、基于标准的，并且具有丰富功能的 Http 服务器和 Web 容器。
+
+在配置jetty的过程中，发现中文互联网中关于jetty启动配置的说明非常少，查找了不少资料，有了些许的收获，在这里分享出来（下面不讨论代码中嵌入启动jetty以及IDE启动jetty的方式）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jetty启动配置简介">
+<meta property="og:url" content="http://xlvecle.github.io/2015/03/27/jetty启动配置简介/index.html">
+<meta property="og:site_name" content="xlvecle's blog">
+<meta property="og:description" content="jetty是什么？
+
+Jetty 是一个用 Java 实现、开源、基于标准的，并且具有丰富功能的 Http 服务器和 Web 容器。
+
+在配置jetty的过程中，发现中文互联网中关于jetty启动配置的说明非常少，查找了不少资料，有了些许的收获，在这里分享出来（下面不讨论代码中嵌入启动jetty以及IDE启动jetty的方式）。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jetty启动配置简介">
+<meta name="twitter:description" content="jetty是什么？
+
+Jetty 是一个用 Java 实现、开源、基于标准的，并且具有丰富功能的 Http 服务器和 Web 容器。
+
+在配置jetty的过程中，发现中文互联网中关于jetty启动配置的说明非常少，查找了不少资料，有了些许的收获，在这里分享出来（下面不讨论代码中嵌入启动jetty以及IDE启动jetty的方式）。">
+  
+    <link rel="alternative" href="/atom.xml" title="xlvecle&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">xlvecle&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-home-icon" class="nav-icon" href="/"></a>
+        
+          <a id="nav-archives-icon" class="nav-icon" href="/archives"></a>
+        
+          <a id="nav-about-icon" class="nav-icon" href="/about"></a>
+        
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-jetty启动配置简介" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jetty启动配置简介
+    </h1>
+  
+
+      </header>
+    
+    <time class="article-date" datetime="2015-03-27T10:20:11.000Z" itemprop="datePublished">03-27-2015</time>
+    
+  </div>
+  <div class="article-inner">
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>jetty是什么？</p>
+<blockquote>
+<p>Jetty 是一个用 Java 实现、开源、基于标准的，并且具有丰富功能的 Http 服务器和 Web 容器。</p>
+</blockquote>
+<p>在配置jetty的过程中，发现中文互联网中关于jetty启动配置的说明非常少，查找了不少资料，有了些许的收获，在这里分享出来（下面不讨论代码中嵌入启动jetty以及IDE启动jetty的方式）。<a id="more"></a></p>
+<p>简单地启动一个jetty服务器可以使用下面的命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar start.jar</span><br></pre></td></tr></table></figure></p>
+<p>如果我们没有指定jetty的配置文件，jetty在启动时就会自动寻找$JETTY_HOME下的start.ini文件，所以为了提高灵活性，我们在部署项目的过程中使用自定义的配置文件，用法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar start.jar –-ini=<span class="variable">$JETTY_CONF</span></span><br></pre></td></tr></table></figure></p>
+<p>在配置文件中会指定将要使用的XML文件，jetty.xml是默认的配置文件，该配置文件的根元素是Configure，另外还会看到有如下的配置元素：</p>
+<ul>
+<li>Set: 相当于调用setXxx 方法</li>
+<li>Get: 相当于调用getXxx 方法</li>
+<li>New: 创建某个类的实例</li>
+<li>Arg: 为方法或构造器传入参数</li>
+<li>Array: 设置一个数组</li>
+<li>Item: 设置数组或集合的项</li>
+<li>Call: 调用某个方法</li>
+</ul>
+<p>jetty.xml主要完成ThreadPool、连接器Connector、Handler等主要组件的配置，然后其他如jetty-deploy.xml、jetty-webapps.xml等文件中配置了一些其他内容。实际上，这些都写在一个配置文件中也是没有问题的。</p>
+<p>在配置文件中通过传递启动参数的方法来赋值给一些如端口，context目录，war包目录等具有自定义需求的配置元素。我们在操作中使用如下（只列举了两项）的方法来获取启动参数中的值。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Set</span> <span class="attribute">name</span>=<span class="value">"contextPath"</span>&gt;</span>/<span class="tag">&lt;<span class="title">SystemProperty</span> <span class="attribute">name</span>=<span class="value">"app.context"</span>/&gt;</span><span class="tag">&lt;/<span class="title">Set</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">Set</span> <span class="attribute">name</span>=<span class="value">"war"</span>&gt;</span><span class="tag">&lt;<span class="title">SystemProperty</span> <span class="attribute">name</span>=<span class="value">"app.workdir"</span>/&gt;</span><span class="tag">&lt;/<span class="title">Set</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在定义好配置文件后，将war包解压放入app.workdir中，我们使用（下面只是一个简单的示范）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar start.jar -Djetty.port=<span class="variable">$PORT</span> -Dapp.context=<span class="variable">$CONTEXT</span> -Dapp.workdir=<span class="variable">$WORKDIR</span> –-ini=<span class="variable">$JETTY_CONF</span></span><br></pre></td></tr></table></figure></p>
+<p>这样的命令来启动我们的java web应用，然后应该就ok了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xlvecle.github.io/2015/03/27/jetty启动配置简介/" data-id="ci87g6b2700025wv2fqw40mit" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jetty/">jetty</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/07/hexo添加rss feed/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          hexo添加rss feed
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/27/android5.0开发的一个小坑/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">android5.0开发的一个小坑</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 xlvecle<br>
+      <a href="https://github.com/steven5538/hexo-theme-athena" target="_blank">Theme</a> by <a href="http://steven5538.tw" target="_blank">Steven5538</a> | Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>
