@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://xlvecle.github.io/"/>
-  <updated>2015-04-22T10:38:50.226Z</updated>
+  <updated>2015-04-22T11:10:05.854Z</updated>
   <id>http://xlvecle.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://xlvecle.github.io/2015/04/22/%E5%88%A9%E7%94%A8Git-OSC%E6%8F%90%E4%BE%9B%E7%9A%84hook%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
     <id>http://xlvecle.github.io/2015/04/22/利用Git-OSC提供的hook实现自动化部署/</id>
     <published>2015-04-22T08:47:43.000Z</published>
-    <updated>2015-04-22T10:38:50.226Z</updated>
+    <updated>2015-04-22T11:10:05.854Z</updated>
     <content type="html"><![CDATA[<p>今天找了找免费的Git私有代码仓库，发现<a href="http://git.oschina.net/" target="_blank" rel="external">Git@OSC</a>是个不错的选择，更让人惊喜的是提供了钩子(hook)，可以在每次push代码后，给远程HTTP URL发送一个POST请求，实在是自动部署的利器。<a id="more"></a></p>
 <blockquote>
 <p>使用探究</p>
@@ -41,7 +41,8 @@
 <p>exec()执行外部linux脚本问题及解决</p>
 </blockquote>
 <p>首先碰到的问题是exec()函数无法执行的问题，因为php.ini默认是没有开启这个函数的，需要我们去修改配置文件（如果不知道php配置文件在哪里请用phpinfo()查看）。然后再php.ini中会会有一个disable_functions，把后面的pcntl_exec删掉就可以了。</p>
-<p>启用了exec()，这下应该能用了吧？想太多了，还有坑呢。因为我们执行一些命令的时候权限不够。这时候首先来查看apache的执行用户是谁，sudo lsof -i:80!<br><a href="/img/lsof-i.jpg">lsof-i.jpg</a><br>我们看到是一个叫做www-data的用户，为了让这个用户能够享用使用sudo而不需要密码的权利我们需要配置一下sudoers，sudo vim /etc/sudoers，在文件中加入下面的语句即可。<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">www</span>-<span class="typedef"><span class="keyword">data</span> <span class="type">ALL</span>=<span class="container">(<span class="type">ALL</span>:<span class="type">ALL</span>)</span> <span class="type">NOPASSWD</span>:<span class="type">ALL</span></span></span><br></pre></td></tr></table></figure></p>
+<p>启用了exec()，这下应该能用了吧？想太多了，还有坑呢。因为我们执行一些命令的时候权限不够。这时候首先来查看apache的执行用户是谁，sudo lsof -i:80<br><img src="/img/lsof-i.jpg" alt="lsof-i.jpg"></p>
+<p>我们看到是一个叫做www-data的用户，为了让这个用户能够享用使用sudo而不需要密码的权利我们需要配置一下sudoers，sudo vim /etc/sudoers，在文件中加入下面的语句即可。<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">www</span>-<span class="typedef"><span class="keyword">data</span> <span class="type">ALL</span>=<span class="container">(<span class="type">ALL</span>:<span class="type">ALL</span>)</span> <span class="type">NOPASSWD</span>:<span class="type">ALL</span></span></span><br></pre></td></tr></table></figure></p>
 <p>必要的时候还需要注释掉 default requiretty 。</p>
 <p>上面的操作完成之后应该就可以使用exec()执行linux命令了，然后我碰到了一个很有意思的问题，就是在前面提到的重定向权限不够的问题。比如执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">echo</span> <span class="string">'hi'</span> &gt;/<span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>会发现提示”-bash: /test: Permission denied”，有机智的同学可能会想到’&gt;’和’&gt;&gt;’也是命令啊，他们没有root权限，确实是这样的，但是你在’&gt;’前面加一个sudo不能解决任何问题。</p>
