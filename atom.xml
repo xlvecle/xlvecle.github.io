@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://xlvecle.github.io/"/>
-  <updated>2015-04-22T11:10:05.854Z</updated>
+  <updated>2015-10-04T04:52:55.000Z</updated>
   <id>http://xlvecle.github.io/</id>
   
   <author>
@@ -15,11 +15,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[解决升级El Capitain后开发环境乱套的问题]]></title>
+    <link href="http://xlvecle.github.io/2015/10/04/%E8%A7%A3%E5%86%B3%E5%8D%87%E7%BA%A7El%20Capitain%E5%90%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B9%B1%E5%A5%97%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://xlvecle.github.io/2015/10/04/解决升级El Capitain后开发环境乱套的问题/</id>
+    <published>2015-10-04T03:50:55.000Z</published>
+    <updated>2015-10-04T04:52:55.000Z</updated>
+    <content type="html"><![CDATA[<p>升级完 El Capitain 之后开发环境发生了一定程度的乱套( 忍住,不喷 ), 出现了一些目录的权限问题以及 Xcode developer tools 失效的问题. 症状包括但不限于 homebrew 不能用, git 不能用, 终端配置失效. 一个典型的报错如下:<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">`xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">Stashing your changes:</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">Error: Failure <span class="keyword">while</span> executing: git stash save --include-untracked --quiet</span><br></pre></td></tr></table></figure></p>
+<p>鉴于很多人碰到过这个问题, 互联网上出现了许多解决方法, 经过一番搜索和折腾, 基本把这个问题解决了.</p>
+<p>原因:</p>
+<blockquote>
+<p>OS X 搞了个叫System Integrity Protection的玩意儿, 导致/usr/local目录权限出现了一些问题, 详情戳这里 <a href="https://en.wikipedia.org/wiki/System_Integrity_Protection" target="_blank" rel="external">https://en.wikipedia.org/wiki/System_Integrity_Protection</a></p>
+</blockquote>
+<p>解决方案:</p>
+<ul>
+<li>关掉SIP, 根据 <a href="https://www.quora.com/Can-someone-elaborate-on-the-OS-X-10-11-feature-called-Rootless" target="_blank" rel="external">https://www.quora.com/Can-someone-elaborate-on-the-OS-X-10-11-feature-called-Rootless</a> 给出的方法, 重启 Command+R 进入 Recovery 模式,执行如下命令即可</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">csrutil <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>修复/usr/local的权限</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chflags norestricted /usr/<span class="built_in">local</span> &amp;&amp; sudo chown $(whoami):admin /usr/<span class="built_in">local</span> &amp;&amp; sudo chown -R $(whoami):admin /usr/<span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>修复developer tools</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果你的homebrew还是有问题, 请使用如下命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew doctor</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>升级完 El Capitain 之后开发环境发生了一定程度的乱套( 忍住,不喷 ), 出现了一些目录的权限问题以及 Xcode developer tools 失效的问题. 症状包括但不限于 homebrew 不能用, git 不能用, 终端配置失效. 一个典型的报错如下:]]>
+    </summary>
+    
+      <category term="El Capitain" scheme="http://xlvecle.github.io/tags/El-Capitain/"/>
+    
+      <category term="OS X" scheme="http://xlvecle.github.io/tags/OS-X/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[利用Git@OSC提供的hook实现自动化部署]]></title>
     <link href="http://xlvecle.github.io/2015/04/22/%E5%88%A9%E7%94%A8Git-OSC%E6%8F%90%E4%BE%9B%E7%9A%84hook%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
     <id>http://xlvecle.github.io/2015/04/22/利用Git-OSC提供的hook实现自动化部署/</id>
     <published>2015-04-22T08:47:43.000Z</published>
-    <updated>2015-04-22T11:10:05.854Z</updated>
+    <updated>2015-04-22T11:10:06.000Z</updated>
     <content type="html"><![CDATA[<p>今天找了找免费的Git私有代码仓库，发现<a href="http://git.oschina.net/" target="_blank" rel="external">Git@OSC</a>是个不错的选择，更让人惊喜的是提供了钩子(hook)，可以在每次push代码后，给远程HTTP URL发送一个POST请求，实在是自动部署的利器。<a id="more"></a></p>
 <blockquote>
 <p>使用探究</p>
@@ -42,7 +82,7 @@
 </blockquote>
 <p>首先碰到的问题是exec()函数无法执行的问题，因为php.ini默认是没有开启这个函数的，需要我们去修改配置文件（如果不知道php配置文件在哪里请用phpinfo()查看）。然后再php.ini中会会有一个disable_functions，把后面的pcntl_exec删掉就可以了。</p>
 <p>启用了exec()，这下应该能用了吧？想太多了，还有坑呢。因为我们执行一些命令的时候权限不够。这时候首先来查看apache的执行用户是谁，sudo lsof -i:80<br><img src="/img/lsof-i.jpg" alt="lsof-i.jpg"></p>
-<p>我们看到是一个叫做www-data的用户，为了让这个用户能够享用使用sudo而不需要密码的权利我们需要配置一下sudoers，sudo vim /etc/sudoers，在文件中加入下面的语句即可。<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">www</span>-<span class="typedef"><span class="keyword">data</span> <span class="type">ALL</span>=<span class="container">(<span class="type">ALL</span>:<span class="type">ALL</span>)</span> <span class="type">NOPASSWD</span>:<span class="type">ALL</span></span></span><br></pre></td></tr></table></figure></p>
+<p>我们看到是一个叫做www-data的用户，为了让这个用户能够享用使用sudo而不需要密码的权利我们需要配置一下sudoers，sudo vim /etc/sudoers，在文件中加入下面的语句即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www-data ALL=(ALL:ALL) NOPASSWD:ALL</span><br></pre></td></tr></table></figure></p>
 <p>必要的时候还需要注释掉 default requiretty 。</p>
 <p>上面的操作完成之后应该就可以使用exec()执行linux命令了，然后我碰到了一个很有意思的问题，就是在前面提到的重定向权限不够的问题。比如执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">echo</span> <span class="string">'hi'</span> &gt;/<span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>会发现提示”-bash: /test: Permission denied”，有机智的同学可能会想到’&gt;’和’&gt;&gt;’也是命令啊，他们没有root权限，确实是这样的，但是你在’&gt;’前面加一个sudo不能解决任何问题。</p>
@@ -56,8 +96,8 @@
 <p>开启rewrite并合理配置.htaccess之后可以让我们php项目的地址显得更加漂亮简洁，而不必去访问一个丑陋的xxx.com/xxx.php。</p>
 <p>不过使用apt安装的apache时并没有默认开启rewrite module的，需要我们手动做一些配置。</p>
 <p>ubuntu14.04安装apache2之后的配置文件有了些许的变化，不是往常的httpd.conf而是/etc/apache2/apache2.conf，打开之后我们发现新的配置文件已经把mods-enabled的配置放在了mods-enabled的目录下，里面都是从mods-available目录下面拉过来的软链接，我们只需要<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln <span class="operator">-s</span> ../mods-available/rewrite.load</span><br></pre></td></tr></table></figure></p>
-<p>即可。或者图简单可以直接在apache2.conf中添加<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module <span class="regexp">/usr/</span>lib<span class="regexp">/apache2/m</span>odules<span class="regexp">/mod_rewrite.so</span></span><br></pre></td></tr></table></figure></p>
-<p>然后将目录设置下的AllowOverride None改为AllowOverride ALL，我们的rewrite就可以真正生效了（不要忘记重启apache）。<br>一条典型的rewrite应该放在根目录的.htaccess文件中,下面这一条实现了匹配所有/share/xxx的地址到share.php?topicId=$1去的需求。<br><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword"><span class="common">RewriteEngine</span></span> <span class="literal">on</span>                      </span><br><span class="line"><span class="keyword"><span class="common">RewriteRule</span></span> ^/?share/([a-zA-Z0-9_-]+)$ share.php?topicId=<span class="number">$1</span></span><br></pre></td></tr></table></figure></p>
+<p>即可。或者图简单可以直接在apache2.conf中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module /usr/lib/apache2/modules/mod_rewrite.so</span><br></pre></td></tr></table></figure></p>
+<p>然后将目录设置下的AllowOverride None改为AllowOverride ALL，我们的rewrite就可以真正生效了（不要忘记重启apache）。<br>一条典型的rewrite应该放在根目录的.htaccess文件中,下面这一条实现了匹配所有/share/xxx的地址到share.php?topicId=$1去的需求。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine on                      &#10;RewriteRule ^/?share/([a-zA-Z0-9_-]+)$ share.php?topicId=$1</span><br></pre></td></tr></table></figure></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>今天找了找免费的Git私有代码仓库，发现<a href="http://git.oschina.net/">Git@OSC</a>是个不错的选择，更让人惊喜的是提供了钩子(hook)，可以在每次push代码后，给远程HTTP URL发送一个POST请求，实在是自动部署的利器。]]>
@@ -71,7 +111,7 @@
     <link href="http://xlvecle.github.io/2015/04/21/%E4%BD%BF%E7%94%A8php%E8%AF%B7%E6%B1%82api/"/>
     <id>http://xlvecle.github.io/2015/04/21/使用php请求api/</id>
     <published>2015-04-21T10:55:02.000Z</published>
-    <updated>2015-04-22T11:04:28.594Z</updated>
+    <updated>2015-04-22T11:04:30.000Z</updated>
     <content type="html"><![CDATA[<p>今天一个学弟问我这个问题，我把自己以前写的一个httpUtil发给了他，实现的很简单，不过效果还不错。<br><a id="more"></a><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="comment">/**</span><br><span class="line">* xlvecle</span><br><span class="line">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">httpUtil</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">httpGet</span><span class="params">(<span class="variable">$url</span>, <span class="variable">$data</span> = null)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$data</span>)) &#123;</span><br><span class="line">			<span class="variable">$data</span> = http_build_query(<span class="variable">$data</span>);</span><br><span class="line">			<span class="variable">$url</span> = <span class="variable">$url</span>.<span class="string">"?"</span>.<span class="variable">$data</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="variable">$opts</span> = <span class="keyword">array</span>(</span><br><span class="line">			<span class="string">'http'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">				<span class="string">'method'</span> =&gt; <span class="string">"GET"</span>,</span><br><span class="line">				<span class="string">'timeout'</span>=&gt; <span class="string">"60"</span>,</span><br><span class="line">				<span class="string">'header'</span> =&gt; <span class="string">"Content-type: application/x-www-form-urlencoded\r\n"</span>.  </span><br><span class="line">							<span class="string">"Content-length:"</span>.strlen(<span class="variable">$data</span>).<span class="string">"\r\n"</span> .   </span><br><span class="line">							<span class="string">"Cookie: foo=bar\r\n"</span> .   </span><br><span class="line">							<span class="string">"\r\n"</span>,</span><br><span class="line">				<span class="string">'content'</span> =&gt; <span class="variable">$data</span></span><br><span class="line">				)</span><br><span class="line">			);</span><br><span class="line">		<span class="variable">$context</span> = stream_context_create(<span class="variable">$opts</span>);</span><br><span class="line">		<span class="keyword">return</span> file_get_contents(<span class="variable">$url</span>, <span class="keyword">false</span>, <span class="variable">$context</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">httpPost</span><span class="params">(<span class="variable">$url</span>, <span class="variable">$data</span> = null)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$data</span>)) &#123;</span><br><span class="line">			<span class="variable">$data</span> = http_build_query(<span class="variable">$data</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="variable">$opts</span> = <span class="keyword">array</span>(</span><br><span class="line">			<span class="string">'http'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">				<span class="string">'method'</span> =&gt; <span class="string">"POST"</span>,</span><br><span class="line">				<span class="string">'timeout'</span>=&gt; <span class="string">"60"</span>,</span><br><span class="line">				<span class="string">'header'</span> =&gt; <span class="string">"Content-type: application/x-www-form-urlencoded\r\n"</span>.  </span><br><span class="line">							<span class="string">"Content-length:"</span>.strlen(<span class="variable">$data</span>).<span class="string">"\r\n"</span> .   </span><br><span class="line">							<span class="string">"Cookie: foo=bar\r\n"</span> .   </span><br><span class="line">							<span class="string">"\r\n"</span>,</span><br><span class="line">				<span class="string">'content'</span> =&gt; <span class="variable">$data</span></span><br><span class="line">				)</span><br><span class="line">			);</span><br><span class="line">		<span class="variable">$context</span> = stream_context_create(<span class="variable">$opts</span>);</span><br><span class="line">		<span class="keyword">echo</span> file_get_contents(<span class="variable">$url</span>, <span class="keyword">false</span>, <span class="variable">$context</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 ]]></content>
     <summary type="html">
@@ -86,13 +126,13 @@
     <link href="http://xlvecle.github.io/2015/04/07/hexo%E6%B7%BB%E5%8A%A0rss%20feed/"/>
     <id>http://xlvecle.github.io/2015/04/07/hexo添加rss feed/</id>
     <published>2015-04-07T10:25:00.000Z</published>
-    <updated>2015-04-07T15:12:57.132Z</updated>
-    <content type="html"><![CDATA[<p>在config.yml中添加：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">plugins:</span></span><br><span class="line">	- hexo-generator-feed</span><br></pre></td></tr></table></figure></p>
+    <updated>2015-04-07T15:12:58.000Z</updated>
+    <content type="html"><![CDATA[<p>在config.yml中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins:&#10;&#9;- hexo-generator-feed</span><br></pre></td></tr></table></figure></p>
 <p>在hexo目录下执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure></p>
 <p>然后在执行hexo g的时候便会自动生成atom.xml。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>在config.yml中添加：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">]]>
+    <![CDATA[<p>在config.yml中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class]]>
     </summary>
     
       <category term="hexo" scheme="http://xlvecle.github.io/tags/hexo/"/>
@@ -104,7 +144,7 @@
     <link href="http://xlvecle.github.io/2015/03/27/jetty%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE%E7%AE%80%E4%BB%8B/"/>
     <id>http://xlvecle.github.io/2015/03/27/jetty启动配置简介/</id>
     <published>2015-03-27T10:20:11.000Z</published>
-    <updated>2015-04-07T14:51:27.412Z</updated>
+    <updated>2015-04-07T14:51:28.000Z</updated>
     <content type="html"><![CDATA[<p>jetty是什么？</p>
 <blockquote>
 <p>Jetty 是一个用 Java 实现、开源、基于标准的，并且具有丰富功能的 Http 服务器和 Web 容器。</p>
@@ -149,7 +189,7 @@
     <link href="http://xlvecle.github.io/2015/02/27/android5.0%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%9D%91/"/>
     <id>http://xlvecle.github.io/2015/02/27/android5.0开发的一个小坑/</id>
     <published>2015-02-27T14:57:53.000Z</published>
-    <updated>2015-04-07T14:51:42.098Z</updated>
+    <updated>2015-04-07T14:51:44.000Z</updated>
     <content type="html"><![CDATA[<p>  在使用API21开发的时候发现了一个问题，就是在设置layout的时候发现button的text会被自动转换成大写，真是一个奇怪的问题。<br>解决方法如下：<a id="more"></a> </p>
 <blockquote>
 <p>在button的layout定义中加入android:textAllCaps=”false”即可，诡异的是Android Studio居然还没有这个的自动补全，所以全靠手动敲咯。</p>
@@ -171,7 +211,7 @@
     <link href="http://xlvecle.github.io/2014/11/10/%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%B5%AE%E5%8A%A8%E6%9D%A1%E7%9A%84%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%96%B9%E6%B3%95/"/>
     <id>http://xlvecle.github.io/2014/11/10/实现页面底部浮动条的一个简单方法/</id>
     <published>2014-11-10T10:57:20.000Z</published>
-    <updated>2015-04-22T10:58:17.751Z</updated>
+    <updated>2015-04-22T10:58:18.000Z</updated>
     <content type="html"><![CDATA[<p>据某童鞋给我讲，在用手机使用百度搜索的时候，百度会很流氓的在下面来一坨“速度不够快？快用百度浏览器”，真是神烦，但是有时候还真有这样的需求，该怎么实现呢？<a id="more"></a></p>
 <p>这个问题网上有很多答案，但是这个问题延续了国产答案的一贯风气，复制粘贴，不肯动手，真正能放上去用的并不多。</p>
 <p>用百度搜一些国内网页，包括博客以及论坛，对于一些常见IT问题的回答往往都是错误的。这里提到的这个问题也不能幸免。</p>

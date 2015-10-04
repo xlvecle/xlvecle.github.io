@@ -11,8 +11,9 @@
 <meta property="og:url" content="http://xlvecle.github.io/2015/04/22/利用Git-OSC提供的hook实现自动化部署/index.html">
 <meta property="og:site_name" content="xlvecle's blog">
 <meta property="og:description" content="今天找了找免费的Git私有代码仓库，发现Git@OSC是个不错的选择，更让人惊喜的是提供了钩子(hook)，可以在每次push代码后，给远程HTTP URL发送一个POST请求，实在是自动部署的利器。">
-<meta property="og:image" content="/img/git_osc_hook.jpg">
-<meta property="og:image" content="/img/lsof-i.jpg">
+<meta property="og:image" content="http://xlvecle.github.io/img/git_osc_hook.jpg">
+<meta property="og:image" content="http://xlvecle.github.io/img/lsof-i.jpg">
+<meta property="og:updated_time" content="2015-04-22T11:10:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Git@OSC提供的hook实现自动化部署">
 <meta name="twitter:description" content="今天找了找免费的Git私有代码仓库，发现Git@OSC是个不错的选择，更让人惊喜的是提供了钩子(hook)，可以在每次push代码后，给远程HTTP URL发送一个POST请求，实在是自动部署的利器。">
@@ -95,7 +96,7 @@
 </blockquote>
 <p>首先碰到的问题是exec()函数无法执行的问题，因为php.ini默认是没有开启这个函数的，需要我们去修改配置文件（如果不知道php配置文件在哪里请用phpinfo()查看）。然后再php.ini中会会有一个disable_functions，把后面的pcntl_exec删掉就可以了。</p>
 <p>启用了exec()，这下应该能用了吧？想太多了，还有坑呢。因为我们执行一些命令的时候权限不够。这时候首先来查看apache的执行用户是谁，sudo lsof -i:80<br><img src="/img/lsof-i.jpg" alt="lsof-i.jpg"></p>
-<p>我们看到是一个叫做www-data的用户，为了让这个用户能够享用使用sudo而不需要密码的权利我们需要配置一下sudoers，sudo vim /etc/sudoers，在文件中加入下面的语句即可。<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">www</span>-<span class="typedef"><span class="keyword">data</span> <span class="type">ALL</span>=<span class="container">(<span class="type">ALL</span>:<span class="type">ALL</span>)</span> <span class="type">NOPASSWD</span>:<span class="type">ALL</span></span></span><br></pre></td></tr></table></figure></p>
+<p>我们看到是一个叫做www-data的用户，为了让这个用户能够享用使用sudo而不需要密码的权利我们需要配置一下sudoers，sudo vim /etc/sudoers，在文件中加入下面的语句即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www-data ALL=(ALL:ALL) NOPASSWD:ALL</span><br></pre></td></tr></table></figure></p>
 <p>必要的时候还需要注释掉 default requiretty 。</p>
 <p>上面的操作完成之后应该就可以使用exec()执行linux命令了，然后我碰到了一个很有意思的问题，就是在前面提到的重定向权限不够的问题。比如执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">echo</span> <span class="string">'hi'</span> &gt;/<span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>会发现提示”-bash: /test: Permission denied”，有机智的同学可能会想到’&gt;’和’&gt;&gt;’也是命令啊，他们没有root权限，确实是这样的，但是你在’&gt;’前面加一个sudo不能解决任何问题。</p>
@@ -109,13 +110,13 @@
 <p>开启rewrite并合理配置.htaccess之后可以让我们php项目的地址显得更加漂亮简洁，而不必去访问一个丑陋的xxx.com/xxx.php。</p>
 <p>不过使用apt安装的apache时并没有默认开启rewrite module的，需要我们手动做一些配置。</p>
 <p>ubuntu14.04安装apache2之后的配置文件有了些许的变化，不是往常的httpd.conf而是/etc/apache2/apache2.conf，打开之后我们发现新的配置文件已经把mods-enabled的配置放在了mods-enabled的目录下，里面都是从mods-available目录下面拉过来的软链接，我们只需要<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln <span class="operator">-s</span> ../mods-available/rewrite.load</span><br></pre></td></tr></table></figure></p>
-<p>即可。或者图简单可以直接在apache2.conf中添加<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module <span class="regexp">/usr/</span>lib<span class="regexp">/apache2/m</span>odules<span class="regexp">/mod_rewrite.so</span></span><br></pre></td></tr></table></figure></p>
-<p>然后将目录设置下的AllowOverride None改为AllowOverride ALL，我们的rewrite就可以真正生效了（不要忘记重启apache）。<br>一条典型的rewrite应该放在根目录的.htaccess文件中,下面这一条实现了匹配所有/share/xxx的地址到share.php?topicId=$1去的需求。<br><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword"><span class="common">RewriteEngine</span></span> <span class="literal">on</span>                      </span><br><span class="line"><span class="keyword"><span class="common">RewriteRule</span></span> ^/?share/([a-zA-Z0-9_-]+)$ share.php?topicId=<span class="number">$1</span></span><br></pre></td></tr></table></figure></p>
+<p>即可。或者图简单可以直接在apache2.conf中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module /usr/lib/apache2/modules/mod_rewrite.so</span><br></pre></td></tr></table></figure></p>
+<p>然后将目录设置下的AllowOverride None改为AllowOverride ALL，我们的rewrite就可以真正生效了（不要忘记重启apache）。<br>一条典型的rewrite应该放在根目录的.htaccess文件中,下面这一条实现了匹配所有/share/xxx的地址到share.php?topicId=$1去的需求。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine on                      &#10;RewriteRule ^/?share/([a-zA-Z0-9_-]+)$ share.php?topicId=$1</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xlvecle.github.io/2015/04/22/利用Git-OSC提供的hook实现自动化部署/" data-id="ci8sn2hzr0007c8v2lvlvzpm2" class="article-share-link">Share</a>
+      <a data-url="http://xlvecle.github.io/2015/04/22/利用Git-OSC提供的hook实现自动化部署/" data-id="cifc0faih0007lx56d2ifwm47" class="article-share-link">Share</a>
       
       
     </footer>
@@ -123,6 +124,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2015/10/04/解决升级El Capitain后开发环境乱套的问题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          解决升级El Capitain后开发环境乱套的问题
+        
+      </div>
+    </a>
   
   
     <a href="/2015/04/21/使用php请求api/" id="article-nav-older" class="article-nav-link-wrap">
