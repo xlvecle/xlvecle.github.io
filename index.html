@@ -72,33 +72,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>升级完 El Capitain 之后开发环境发生了一定程度的乱套( 忍住,不喷 ), 出现了一些目录的权限问题以及 Xcode developer tools 失效的问题. 症状包括但不限于 homebrew 不能用, git 不能用, 终端配置失效. 一个典型的报错如下:<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">`xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">Stashing your changes:</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">Error: Failure <span class="keyword">while</span> executing: git stash save --include-untracked --quiet</span><br></pre></td></tr></table></figure></p>
-<p>鉴于很多人碰到过这个问题, 互联网上出现了许多解决方法, 经过一番搜索和折腾, 基本把这个问题解决了.</p>
-<p>原因:</p>
-<blockquote>
-<p>OS X 搞了个叫System Integrity Protection的玩意儿, 导致/usr/local目录权限出现了一些问题, 详情戳这里 <a href="https://en.wikipedia.org/wiki/System_Integrity_Protection" target="_blank" rel="external">https://en.wikipedia.org/wiki/System_Integrity_Protection</a></p>
-</blockquote>
-<p>解决方案:</p>
-<ul>
-<li>关掉SIP, 根据 <a href="https://www.quora.com/Can-someone-elaborate-on-the-OS-X-10-11-feature-called-Rootless" target="_blank" rel="external">https://www.quora.com/Can-someone-elaborate-on-the-OS-X-10-11-feature-called-Rootless</a> 给出的方法, 重启 Command+R 进入 Recovery 模式,执行如下命令即可</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">csrutil <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>修复/usr/local的权限</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chflags norestricted /usr/<span class="built_in">local</span> &amp;&amp; sudo chown $(whoami):admin /usr/<span class="built_in">local</span> &amp;&amp; sudo chown -R $(whoami):admin /usr/<span class="built_in">local</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>修复developer tools</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
-<ul>
-<li>如果你的homebrew还是有问题, 请使用如下命令</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew doctor</span><br></pre></td></tr></table></figure>
-
+<p>鉴于很多人碰到过这个问题, 互联网上出现了许多解决方法, 经过一番搜索和折腾, 基本把这个问题解决了.<br>
+        
+          <p class="article-more-link">
+            <a href="/2015/10/04/解决升级El Capitain后开发环境乱套的问题/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xlvecle.github.io/2015/10/04/解决升级El Capitain后开发环境乱套的问题/" data-id="cifc0h6qn0000qc5624n8ozbl" class="article-share-link">Share</a>
+      <a data-url="http://xlvecle.github.io/2015/10/04/解决升级El Capitain后开发环境乱套的问题/" data-id="ciffkea1800065o56r9wl7eda" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/El-Capitain/">El Capitain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS-X/">OS X</a></li></ul>
@@ -136,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xlvecle.github.io/2015/04/22/利用Git-OSC提供的hook实现自动化部署/" data-id="cifc0faih0007lx56d2ifwm47" class="article-share-link">Share</a>
+      <a data-url="http://xlvecle.github.io/2015/04/22/利用Git-OSC提供的hook实现自动化部署/" data-id="ciffkea1c000c5o56be00o2n4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -172,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xlvecle.github.io/2015/04/21/使用php请求api/" data-id="cifc0faij0008lx56fikdmrh3" class="article-share-link">Share</a>
+      <a data-url="http://xlvecle.github.io/2015/04/21/使用php请求api/" data-id="ciffkea1g000d5o569j2w80jp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -206,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xlvecle.github.io/2015/04/07/hexo添加rss feed/" data-id="cifc0faio000glx56r4h3yoap" class="article-share-link">Share</a>
+      <a data-url="http://xlvecle.github.io/2015/04/07/hexo添加rss feed/" data-id="ciffkea1l000l5o56vasv5692" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
@@ -248,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xlvecle.github.io/2015/03/27/jetty启动配置简介/" data-id="cifc0fail0009lx56av4jr5sg" class="article-share-link">Share</a>
+      <a data-url="http://xlvecle.github.io/2015/03/27/jetty启动配置简介/" data-id="ciffkea1i000e5o56e4vmr9nf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jetty/">jetty</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
@@ -286,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xlvecle.github.io/2015/02/27/android5.0开发的一个小坑/" data-id="cifc0fai10000lx567tfc7f32" class="article-share-link">Share</a>
+      <a data-url="http://xlvecle.github.io/2015/02/27/android5.0开发的一个小坑/" data-id="ciffkea0x00005o56oukr435e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-studio/">android studio</a></li></ul>
@@ -324,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xlvecle.github.io/2014/11/10/实现页面底部浮动条的一个简单方法/" data-id="cifc0faif0006lx56nl2egmwx" class="article-share-link">Share</a>
+      <a data-url="http://xlvecle.github.io/2014/11/10/实现页面底部浮动条的一个简单方法/" data-id="ciffkea1a000b5o56z881bydf" class="article-share-link">Share</a>
       
       
     </footer>

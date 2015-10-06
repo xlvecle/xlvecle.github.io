@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://xlvecle.github.io/"/>
-  <updated>2015-10-04T04:52:55.000Z</updated>
+  <updated>2015-10-06T16:12:13.000Z</updated>
   <id>http://xlvecle.github.io/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://xlvecle.github.io/2015/10/04/%E8%A7%A3%E5%86%B3%E5%8D%87%E7%BA%A7El%20Capitain%E5%90%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B9%B1%E5%A5%97%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>http://xlvecle.github.io/2015/10/04/解决升级El Capitain后开发环境乱套的问题/</id>
     <published>2015-10-04T03:50:55.000Z</published>
-    <updated>2015-10-04T04:52:55.000Z</updated>
+    <updated>2015-10-06T16:12:13.000Z</updated>
     <content type="html"><![CDATA[<p>升级完 El Capitain 之后开发环境发生了一定程度的乱套( 忍住,不喷 ), 出现了一些目录的权限问题以及 Xcode developer tools 失效的问题. 症状包括但不限于 homebrew 不能用, git 不能用, 终端配置失效. 一个典型的报错如下:<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">`xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">Stashing your changes:</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">Error: Failure <span class="keyword">while</span> executing: git stash save --include-untracked --quiet</span><br></pre></td></tr></table></figure></p>
-<p>鉴于很多人碰到过这个问题, 互联网上出现了许多解决方法, 经过一番搜索和折腾, 基本把这个问题解决了.</p>
+<p>鉴于很多人碰到过这个问题, 互联网上出现了许多解决方法, 经过一番搜索和折腾, 基本把这个问题解决了.<br><a id="more"></a></p>
 <p>原因:</p>
 <blockquote>
 <p>OS X 搞了个叫System Integrity Protection的玩意儿, 导致/usr/local目录权限出现了一些问题, 详情戳这里 <a href="https://en.wikipedia.org/wiki/System_Integrity_Protection" target="_blank" rel="external">https://en.wikipedia.org/wiki/System_Integrity_Protection</a></p>
@@ -45,7 +45,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew doctor</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>升级完 El Capitain 之后开发环境发生了一定程度的乱套( 忍住,不喷 ), 出现了一些目录的权限问题以及 Xcode developer tools 失效的问题. 症状包括但不限于 homebrew 不能用, git 不能用, 终端配置失效. 一个典型的报错如下:]]>
+    <![CDATA[<p>升级完 El Capitain 之后开发环境发生了一定程度的乱套( 忍住,不喷 ), 出现了一些目录的权限问题以及 Xcode developer tools 失效的问题. 症状包括但不限于 homebrew 不能用, git 不能用, 终端配置失效. 一个典型的报错如下:<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">`xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">Stashing your changes:</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</span><br><span class="line">Error: Failure <span class="keyword">while</span> executing: git stash save --include-untracked --quiet</span><br></pre></td></tr></table></figure></p>
+<p>鉴于很多人碰到过这个问题, 互联网上出现了许多解决方法, 经过一番搜索和折腾, 基本把这个问题解决了.<br>]]>
+    
     </summary>
     
       <category term="El Capitain" scheme="http://xlvecle.github.io/tags/El-Capitain/"/>
