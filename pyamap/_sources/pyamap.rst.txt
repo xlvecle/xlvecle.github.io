@@ -1,0 +1,13 @@
+pyamap package
+==============
+
+Submodules
+----------
+
+pyamap.amap module
+------------------
+
+.. automodule:: pyamap.amap
+   :members:
+   :undoc-members:
+   :show-inheritance:

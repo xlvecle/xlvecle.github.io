@@ -1,0 +1,8 @@
+pyamap
+======
+
+.. toctree::
+   :maxdepth: 4
+
+   pyamap
+   setup

@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyamap package &mdash; pyamap 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pyamap
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">pyamap package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-pyamap.amap">pyamap.amap module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyamap</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>pyamap package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pyamap.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pyamap-package">
+<h1>pyamap package<a class="headerlink" href="#pyamap-package" title="永久链接至标题">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-pyamap.amap">
+<span id="pyamap-amap-module"></span><h2>pyamap.amap module<a class="headerlink" href="#module-pyamap.amap" title="永久链接至标题">¶</a></h2>
+<dl class="class">
+<dt id="pyamap.amap.Amap">
+<em class="property">class </em><code class="sig-prename descclassname">pyamap.amap.</code><code class="sig-name descname">Amap</code><span class="sig-paren">(</span><em class="sig-param">show_html=True</em>, <em class="sig-param">width='70%'</em>, <em class="sig-param">height=300</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamap.amap.Amap" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>pyamap旨在提供一个可以在notebook中方便绘制简单地理信息的python库，功能简单，易于使用</p>
+<p class="rubric">实际案例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">amap</span> <span class="o">=</span> <span class="kn">from</span> <span class="nn">pyamap.amap</span> <span class="k">import</span> <span class="n">Amap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">amap</span> <span class="o">=</span> <span class="n">Amap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">amap</span><span class="o">.</span><span class="n">setZoomLevel</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">amap</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="s2">&quot;70%&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">amap</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="s2">&quot;300px&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">amap</span><span class="o">.</span><span class="n">addMarker</span><span class="p">(</span><span class="mf">116.397428</span><span class="p">,</span><span class="mf">39.90923</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">amap</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pyamap.amap.Amap.add_circle">
+<code class="sig-name descname">add_circle</code><span class="sig-paren">(</span><em class="sig-param">lng</em>, <em class="sig-param">lat</em>, <em class="sig-param">psize=100</em>, <em class="sig-param">color='blue'</em>, <em class="sig-param">opacity=3</em>, <em class="sig-param">stroke_weight=3</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamap.amap.Amap.add_circle" title="永久链接至目标">¶</a></dt>
+<dd><p>添加一个圆点</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lng</strong> – 经度</p></li>
+<li><p><strong>lat</strong> – 维度</p></li>
+<li><p><strong>psize</strong> – 点大小</p></li>
+<li><p><strong>color</strong> – 颜色</p></li>
+<li><p><strong>opacity</strong> – 透明度</p></li>
+<li><p><strong>stroke_weight</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamap.amap.Amap.add_marker">
+<code class="sig-name descname">add_marker</code><span class="sig-paren">(</span><em class="sig-param">lng</em>, <em class="sig-param">lat</em>, <em class="sig-param">icon='http://webapi.amap.com/images/marker_sprite.png'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamap.amap.Amap.add_marker" title="永久链接至目标">¶</a></dt>
+<dd><p>添加一个覆盖物</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lng</strong> – 经度</p></li>
+<li><p><strong>lat</strong> – 维度</p></li>
+<li><p><strong>icon</strong> – 覆盖物样式（提供一个png文件的网络地址，默认有一个）</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamap.amap.Amap.add_polygon">
+<code class="sig-name descname">add_polygon</code><span class="sig-paren">(</span><em class="sig-param">polygon_arr</em>, <em class="sig-param">stroke_color='blue'</em>, <em class="sig-param">stroke_opacity=0.2</em>, <em class="sig-param">stroke_weight=3</em>, <em class="sig-param">fill_color='blue'</em>, <em class="sig-param">fill_opacity=0.35</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamap.amap.Amap.add_polygon" title="永久链接至目标">¶</a></dt>
+<dd><p>添加一个多边形</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>polygon_arr</strong> – 多边形数组，为一堆点的集合，形如: [[lng1, lat1], [lng2, lat2], [lng3, lat3]]</p></li>
+<li><p><strong>stroke_color</strong> – 边的颜色</p></li>
+<li><p><strong>stroke_opacity</strong> – 边的透明度</p></li>
+<li><p><strong>stroke_weight</strong> – 边的粗细</p></li>
+<li><p><strong>fill_color</strong> – 填充颜色</p></li>
+<li><p><strong>fill_opacity</strong> – 填充透明度</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamap.amap.Amap.remove_ruler">
+<code class="sig-name descname">remove_ruler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamap.amap.Amap.remove_ruler" title="永久链接至目标">¶</a></dt>
+<dd><p>移除测距功能</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamap.amap.Amap.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamap.amap.Amap.show" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyamap.amap.Amap.use_ruler">
+<code class="sig-name descname">use_ruler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamap.amap.Amap.use_ruler" title="永久链接至目标">¶</a></dt>
+<dd><p>添加测距</p>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamap.amap.main">
+<code class="sig-prename descclassname">pyamap.amap.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamap.amap.main" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, xlvecle
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
